@@ -1,0 +1,4 @@
+AlignAfterOpenBracket: BlockIndent
+ColumnLimit: 0
+ContinuationIndentWidth: 2
+IndentWidth: 2
