@@ -32,14 +32,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO, KC_NO, LS_UP, KC_NO, KC_NO, KC_NO, /**/ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TO(0),
     JS_0, LS_LEFT, LS_DOWN, LS_RIGHT, KC_NO, KC_NO, /**/ JS_1, JS_2, JS_3, JS_4, KC_NO, JS_5,
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, /**/ KC_NO, JS_6, JS_7, KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, JS_8, JS_9, /**/ JS_10, JS_11, KC_NO
+    JS_8, JS_9, JS_10, /**/ JS_11, JS_12, KC_NO
   ),
 };
 
 static bool ls_left = false;
 static bool ls_right = false;
-static bool ls_down = false;
 static bool ls_up = false;
+static bool ls_down = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -71,13 +71,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
 
-  case LS_DOWN:
+  case LS_UP:
     if (record->event.pressed) {
-      ls_down = true;
+      ls_up = true;
       joystick_set_axis(1, -127);
     } else {
-      ls_down = false;
-      if (ls_up) {
+      ls_up = false;
+      if (ls_down) {
         joystick_set_axis(1, 127);
       } else {
         joystick_set_axis(1, 0);
@@ -85,13 +85,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
 
-  case LS_UP:
+  case LS_DOWN:
     if (record->event.pressed) {
-      ls_up = true;
+      ls_down = true;
       joystick_set_axis(1, 127);
     } else {
-      ls_up = false;
-      if (ls_down) {
+      ls_down = false;
+      if (ls_up) {
         joystick_set_axis(1, -127);
       } else {
         joystick_set_axis(1, 0);
